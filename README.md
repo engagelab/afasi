@@ -1,8 +1,13 @@
-E-Learning-Generic
+Afasi Project - sourced from teh Virtual Museum codebase
 ===
 
-This is a generic version of the HMS project without content. Use it as a template for other projects.
-The following custom HTML tags can be used to manage content:
+setup
+-----
+
+* clone to your local machine
+* run `npm install`
+* run `bower install`
+* run `grunt`
 
 
 grunt
@@ -14,9 +19,5 @@ META
 ----
 `<meta>` tag should be the first tag in the document. 'name' must be 'module', 'content' must be module number, language code separated by ','
 
-
-See module 7 (accessed from the side menu) for a demonstration of these widgets including styling
-------------------------------------------------------------------------------------------------
-# nkp-vm.github.io
 
 # afasi
