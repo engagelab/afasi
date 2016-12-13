@@ -1,0 +1,19 @@
+<div>
+    <div class="readmore"  ng-click="slideToggle()">
+        <div layout="row" layout-align="start center">
+            <img ng-src="{{iconRef}}" class="widget-icon">
+            <h4 style="margin: 0 0 0.1em;">{{title}}</h4>
+        </div>
+    </div>
+    <!-- This div will slide open: -->
+    <div id="{{slideId}}" class="sliding-readmore">
+        <div class="content-selector">
+            <div ng-show="imageAndCaptionVisible" class="image-and-caption">
+                <img ng-src="views/content/img/{{imageAndCaption.image}}"><p>{{imageAndCaption.caption}}</p>
+            </div>
+            <br>
+            <ng-transclude></ng-transclude>
+        </div>
+        <div class="lowerborder" ng-show="detailActive"></div><br>
+    </div>
+</div>

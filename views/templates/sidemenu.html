@@ -1,0 +1,14 @@
+<md-sidenav class="md-sidenav-right md-whiteframe-z2 md-closed" md-component-id="right" role="menu">
+    <md-button tabindex="0" class="md-toolbar-tools md-primary" flex="20" layout-align="end" ng-click="closeMenu()" aria-label="Close side menu" >
+        <svg tabindex="-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 36 36"><path style="fill: #fff;" d="M28.5 9.62L26.38 7.5 18 15.88 9.62 7.5 7.5 9.62 15.88 18 7.5 26.38l2.12 2.12L18 20.12l8.38 8.38 2.12-2.12L20.12 18z"/></svg>
+    </md-button>
+    <md-content role="navigation">
+        <nav>
+            <md-list-item ng-repeat="module in modules" ng-class="{'menuItemActive' : currentModule == $index+1}" role="menuitem">
+                <!--img ng-src="views/icons/{{$index+1}}-1.svg" class="md-avatar" alt="{{module}}" aria-hidden="true"-->
+                <span class="screenReadersOnly" ng-if="currentModule == $index+1">{{ 'SIDEMENUITEM_SELECTED' | translate }}</span><span class="menuItem" ng-click="seekToAnchor(module)">{{module | translate}}</span>
+                <md-divider></md-divider>
+            </md-list-item>
+        </nav>
+    </md-content>
+</md-sidenav>

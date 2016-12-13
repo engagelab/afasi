@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html lang="en" ng-app="GApp" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html lang="en" ng-app="GApp" class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html lang="en" ng-app="GApp" class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html lang="en" ng-app="GApp" class="no-js"> <!--<![endif]-->
+<head>
+    <meta charset="UTF-8">
+    <meta name="apple-mobile-web-app-capable" content="yes"> <!-- This will enable full screen if the page is bookmarked to iPad desktop-->
+    <meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, width=device-width">
+
+    <!-- Facebook Open Graph meta -->
+    <meta property="og:url"                content="http://nkp-vm.github.io" />
+    <meta property="og:type"               content="website" />
+    <meta property="og:title"              content="Books Discovered Once Again" />
+    <meta property="og:description"        content="Virtual Museum" />
+    <meta property="og:image"              content="http://nkp-vm.github.io/views/content/img/discoveredonceagain.jpg" />
+
+    <!-- Use this to force requests to HTTPS -->
+    <!--meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests"-->
+    <link rel="stylesheet" type="text/css" href="bower_components/angular-material/angular-material.min.css" />
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/animations.css">
+</head>
+
+
+<body ng-controller="IndexCtrl">
+
+    <div style="margin: 0 auto; max-width: 1280px;">
+        <!-- Navigation control for entire site -->
+        <div role="menubar" ng-include="'views/templates/navbar.html'"></div>
+
+        <!-- Side Menu -->
+        <div ng-include="'views/templates/sidemenu.html'"></div>
+
+        <header aria-role="banner">
+            <div>
+                <div class="topQuoteMarks" aria-hidden="true">
+                    <span>“</span>
+                </div>
+                <div class="topQuoteText">
+                    <span class="topQuote">{{'title' | translate}}</span>
+                </div>
+                <div layout="row" class="topSubtitleWithSharing" layout-align="start center">
+                    <span fles="90" class="topSubtitle">// {{'virtual_exhibit' | translate}}</span>
+                    <!-- Create links with this tool: http://www.sharelinkgenerator.com/ -->
+
+                        <a href="https://www.facebook.com/sharer/sharer.php?u=nkp-vm.github.io" target="_blank">
+                            <img style="width:6vmin; margin-right: 0.5em;" src="views/img/facebook_icon.png">
+                        </a>
+                        <a href="https://twitter.com/home?status=nkp-vm.github.io" target="_blank">
+                            <img style="width:6vmin;" src="views/img/twitter_icon.png">
+                        </a>
+
+                </div>
+            </div>
+        </header>
+
+        <!-- Site sub-pages are included dynamically here -->
+        <div ng-view role="main" id="content"></div>
+
+        <div nav-circles hide-sm></div>
+
+        <!-- Footer -->
+        <div ng-include="'views/templates/footer.html'"></div>
+
+        <!--[if lt IE 7]>
+        <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+    </div>
+</body>
+
+
+<script src="js/jquery-1.10.2.min.js"></script>
+<script src="js/freewall.js"></script>
+
+<!-- Regular dependencies -->
+<script src="bower_components/angular/angular.min.js"></script>
+<script src="bower_components/angular-route/angular-route.min.js"></script>
+<script src="bower_components/angular-animate/angular-animate.min.js"></script>
+<script src="bower_components/angular-aria/angular-aria.min.js"></script>
+<script src="bower_components/angular-material/angular-material.js"></script>
+<script src="bower_components/angular-sanitize/angular-sanitize.min.js"></script>
+<script src="bower_components/angular-translate/angular-translate.js"></script>
+<script src="bower_components/angular-translate-loader-static-files/angular-translate-loader-static-files.min.js"></script>
+<script src="bower_components/angular-cookies/angular-cookies.min.js"></script>
+<script src="bower_components/angular-translate-storage-cookie/angular-translate-storage-cookie.min.js"></script>
+<script src="bower_components/angular-translate-storage-local/angular-translate-storage-local.min.js"></script>
+<script src="bower_components/angular-smooth-scroll/angular-smooth-scroll.js"></script>
+<script src="bower_components/re-tree/re-tree.min.js"></script>
+<script src="bower_components/ng-device-detector/ng-device-detector.min.js"></script>
+
+<script src="js/app.js"></script>
+<script src="js/directives.js"></script>
+</html>

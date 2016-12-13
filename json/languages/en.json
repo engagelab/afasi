@@ -1,0 +1,23 @@
+{
+  "title": "BOOKS DISCOVERED ONCE AGAIN",
+  "virtual_exhibit": "VIRTUAL EXHIBIT",
+  "HOME": "Home",
+  "SEARCH": "Search",
+  "SECTION": "Section",
+  "no": "norsk",
+  "en": "engelsk",
+  "cs": "čeština",
+  "LOGOUT": "Logout",
+  "LOGIN": "Login",
+  "NAV": "Open slideable menu",
+  "ARIA_LANGUAGE": "language toggle",
+  "ARIA_MENU": "open or close menu",
+  "SIDEMENUITEM_SELECTED": "This menuitem is currently selected",
+  "intro" : "What happened to the books?",
+  "context" : "Historical background",
+  "timeline" : "Timeline",
+  "collection" : "Books witnessing",
+  "provenance" : "Provenance",
+  "process" : "What we do with the books",
+  "about" : "About the project"
+}
