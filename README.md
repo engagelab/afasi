@@ -1,4 +1,4 @@
-Afasi Project - sourced from teh Virtual Museum codebase
+Afasi Project - sourced from the Virtual Museum project codebase
 ===
 
 setup
@@ -18,6 +18,3 @@ A gruntfile is used to clean directories, create documentation, uglify javascrip
 META
 ----
 `<meta>` tag should be the first tag in the document. 'name' must be 'module', 'content' must be module number, language code separated by ','
-
-
-# afasi
