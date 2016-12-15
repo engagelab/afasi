@@ -432,13 +432,13 @@ GDirectives.directive("mosaic", ['$mdDialog','$http', function($mdDialog, $http)
 
             $mdDialog.show({
                 templateUrl: 'views/templates/mosaic_dialog.html',
-                controller: function MosaicDialogController($scope, $mdDialog, tile) {
+                controller: ['$scope', '$mdDialog', 'tile', function MosaicDialogController($scope, $mdDialog, tile) {
                     $scope.tile = tile;
 
                     $scope.closeDialog = function() {
                         $mdDialog.hide();
                     }
-                },
+                }],
                 clickOutsideToClose: true,
                 escapeToClose: true,
                 targetEvent: ev,

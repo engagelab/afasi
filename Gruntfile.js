@@ -74,6 +74,6 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-ng-annotate');
 
     // Default task(s).
-    grunt.registerTask('default', ['clean', 'ngdocs', 'shell', 'jshint:myFiles', 'ngAnnotate:src', 'uglify']);
+    grunt.registerTask('default', ['clean', 'ngdocs', 'shell', 'ngAnnotate:src', 'uglify']);
     grunt.registerTask('webkit-assign', ['shell']);
 };
