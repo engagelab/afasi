@@ -1,5 +1,5 @@
 {
-  "name": "nkp-vm",
+  "name": "afasi",
   "description": "",
   "license": "UNLICENSED",
   "devDependencies": {
@@ -10,6 +10,10 @@
     "grunt-contrib-uglify": "",
     "grunt-ng-annotate": "^1.0.1",
     "grunt-ngdocs": "",
-    "grunt-shell": "^1.1.2"
+    "grunt-shell": "^1.1.2",
+    "webkit-assign": "1.4.x"
+  },
+  "dependencies": {
+    "grunt": "^0.4.5"
   }
 }
