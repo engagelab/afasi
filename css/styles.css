@@ -329,6 +329,10 @@ md-card {
     margin: 2vw 0 6vw 5%;
 }
 
+.inlineVideo {
+    width: 100%;
+    height: auto;
+}
 
 
 /* ---- Side Nav & Search ---- */
@@ -653,7 +657,6 @@ ul.dashlist li:before, ol.dashlist li:before {
     margin-top: 5px;
 }
 .timeline-nav-marker {
-    width: 20px;
     height: 30px;
     border-left: solid #999 1px;
     position: absolute;
@@ -662,7 +665,7 @@ ul.dashlist li:before, ol.dashlist li:before {
 }
 .timeline-nav-marker span {
     display: block;
-    font-size: 0.5em;
+    font-size: 1.1em;
     color: #333;
     margin-left: 2px;
     font-family:"HelveticaNeueW02-75Bold", "Arial Narrow", sans-serif;

@@ -106,7 +106,7 @@ GApp.config(['$routeProvider', function($routeProvider) {
         controller: 'IndexCtrl'
     }).
     otherwise({
-        redirectTo: '/overview/en'
+        redirectTo: '/overview/no'
     });
 }]);
 
