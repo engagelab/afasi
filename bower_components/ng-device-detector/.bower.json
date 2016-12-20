@@ -1,6 +1,6 @@
 {
   "name": "ng-device-detector",
-  "version": "1.1.8",
+  "version": "1.1.9",
   "homepage": "https://github.com/srfrnk/ng-device-detector",
   "authors": [
     "srfrnk <srfrnk@gmail.com>"
@@ -26,13 +26,13 @@
   "dependencies": {
     "re-tree": "^0.0.2"
   },
-  "_release": "1.1.8",
+  "_release": "1.1.9",
   "_resolution": {
     "type": "version",
-    "tag": "v1.1.8",
-    "commit": "f77dc7e24bdf31eefa3e411b3c712f10d3a8bd05"
+    "tag": "v1.1.9",
+    "commit": "54b3d6bcdf4200565a13c437081206e47f9e6fa6"
   },
-  "_source": "git://github.com/srfrnk/ng-device-detector.git",
+  "_source": "https://github.com/srfrnk/ng-device-detector.git",
   "_target": "~1.1.8",
   "_originalSource": "ng-device-detector"
 }

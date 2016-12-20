@@ -77,6 +77,15 @@ NG_DOCS={
     },
     {
       "section": "api",
+      "id": "navCircles",
+      "shortName": "navCircles",
+      "type": "directive",
+      "moduleName": "navCircles",
+      "shortDescription": "Add this attribute to make &#39;navCircles&#39; element.",
+      "keywords": "add api attribute directive element navcircles"
+    },
+    {
+      "section": "api",
       "id": "quickquestion",
       "shortName": "quickquestion",
       "type": "directive",

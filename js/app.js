@@ -106,7 +106,7 @@ GApp.config(['$routeProvider', function($routeProvider) {
         controller: 'IndexCtrl'
     }).
     otherwise({
-        redirectTo: '/overview/en'
+        redirectTo: '/overview/no'
     });
 }]);
 
@@ -149,7 +149,7 @@ GApp.config(['$locationProvider', function($locationProvider) {
 
 
 // Angular Material themes can be configured with custom Palettes
-GApp.config(function($mdThemingProvider) {
+GApp.config(['$mdThemingProvider', function($mdThemingProvider) {
     $mdThemingProvider.definePalette('amazingPaletteName', {
         '50': 'ffebee',
         '100': 'ffcdd2',
@@ -172,7 +172,7 @@ GApp.config(function($mdThemingProvider) {
         'contrastLightColors': undefined    // could also specify this if default was 'dark'
     });
     $mdThemingProvider.theme('default').primaryPalette('amazingPaletteName')
-});
+}]);
 
 
 GApp.config(['$httpProvider', function($httpProvider) {
