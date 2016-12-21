@@ -14,5 +14,9 @@
     "angular-translate-loader-static-files": "~2.8.x",
     "angular-translate-storage-local": "",
     "ng-device-detector": "~1.1.8"
+  },
+  "resolutions": {
+    "angular-translate": "~2.13.1",
+    "angular": "1.6.0"
   }
 }

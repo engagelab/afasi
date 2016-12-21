@@ -1,7 +1,7 @@
 /*!
- * angular-translate - v2.8.1 - 2015-10-01
+ * angular-translate - v2.13.1 - 2016-12-06
  * 
- * Copyright (c) 2015 The angular-translate team, Pascal Precht; Licensed MIT
+ * Copyright (c) 2016 The angular-translate team, Pascal Precht; Licensed MIT
  */
 (function (root, factory) {
   if (typeof define === 'function' && define.amd) {
@@ -19,6 +19,7 @@
   }
 }(this, function () {
 
+$translateLocalStorageFactory.$inject = ['$window', '$translateCookieStorage'];
 angular.module('pascalprecht.translate')
 
 /**
@@ -115,7 +116,6 @@ function $translateLocalStorageFactory($window, $translateCookieStorage) {
   var $translateLocalStorage = hasLocalStorageSupport ? localStorageAdapter : $translateCookieStorage;
   return $translateLocalStorage;
 }
-$translateLocalStorageFactory.$inject = ['$window', '$translateCookieStorage'];
 
 $translateLocalStorageFactory.displayName = '$translateLocalStorageFactory';
 return 'pascalprecht.translate';
