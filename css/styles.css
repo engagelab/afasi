@@ -1144,10 +1144,11 @@ ol {
     }
 
     .footerImage img {
-        max-width: 130px !important;
-        margin-bottom: 10px !important;
+        max-width: 400px !important;
+        margin-bottom: 31px !important;
         opacity: .8 !important;
     }
+
 
     .mosaicDialogImg {
         width: 100% !important;
@@ -1247,8 +1248,8 @@ ol {
     }
 
     .footerImage img {
-        max-width: 130px !important;
-        margin-bottom: 10px !important;
+        max-width: 400px !important;
+        margin-bottom: 31px !important;
         opacity: .8 !important;
     }
 
