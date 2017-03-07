@@ -1,0 +1,78 @@
+<div class="enablequiz border">
+    <div ng-click="clickStart()">
+        <div  style="width: 50px; float: left;">
+            <img ng-src="views/img/quiz/checkmark-circle2.svg"/>
+        </div>
+        <h4 style="margin: 0 0 0.1em;">{{title}}</h4>
+    </div>
+
+    <div ng-show="state =='begin'">
+        <div>
+            <p style="margin: 15px 0 0;" ng-bind-html="trustResource(intro)"></p>
+        </div>
+        <div ng-show="showLanguageSwitch && !showLoginButton">
+            <button ng-click="chooseLanguage(false)" class="quizButton">
+                Bokmål
+            </button>
+            <button ng-click="chooseLanguage(true)" class="quizButton">
+                Nynorsk
+            </button>
+            <a ng-show="showAlreadyPassedDownloadButton" target="_self" ng-href="{{diploma_link}}" >
+                <button>Download Diploma</button>
+            </a>
+        </div>
+        <div ng-show="!showLanguageSwitch && !showLoginButton">
+            <button ng-click="start()" class="quizButton">Begin</button>
+            <a ng-show="showAlreadyPassedDownloadButton" target="_self" ng-href="{{diploma_link}}" >
+                <button class="md-raised md-primary md-cornered hmsbtn">Download Diploma</button>
+            </a>
+        </div>
+    </div>
+
+    <div ng-show="state=='question' || state == 'result'">
+        <p style="margin: 15px 0 0;">{{state == "result" ? 'RESULT' : 'QUESTION'}} <strong>{{pageIndex+1}}</strong> / <strong>{{totalPages}}</strong></p>
+
+        <h4 ng-bind-html="trustResource(currentQuestion.text)"></h4>
+        <img style="width:90%; height: auto; margin: 10px 0 10px;" ng-show="image_url" ng-src="{{image_url}}"/>
+        <div ng-show="state == 'question'">
+            <form ng-show="currentQuestion.type == 'radio'" ng-model="radioTempData.state">
+                <div ng-repeat="a in currentQuestion.answers" class="quizAnswerRadio">
+                    <input type="radio" id="optionType1" ng-class="{'colourCorrect': (a.correct && state == 'result'), 'colourIncorrect': (currentData[$index] == true && (a.correct != currentData[$index]) && state == 'result')}"
+                           ng-disabled="state == 'result'" ng-click="check($index)" ng-value="$index">
+                        <label for="optionType1" ng-bind-html="trustResource(a.text)"></label><img style="width:90%; height: auto;" ng-show="a.image_url" ng-src="{{filePath+a.image_url}}">
+                </div>
+            </form>
+            <form ng-show="currentQuestion.type == 'checkbox'" ng-repeat="a in currentQuestion.answers" class="quizAnswerCheckbox">
+                <input type="checkbox" id="optionType2" ng-class="{'colourCorrect': (a.correct == currentData[$index] && state == 'result'), 'colourIncorrect': (a.correct != currentData[$index] && state == 'result')}" ng-disabled="state == 'result'" class="md-primary" ng-checked="currentData[$index]" ng-click="check($index)">
+                    <label for="optionType2" ng-bind-html="trustResource(a.text)"></label><img style="width:90%; height: auto;" ng-show="a.image_url" ng-src="{{filePath+a.image_url}}">
+            </form>
+        </div>
+        <div>
+            <button ng-show="state == 'result' && pageIndex<totalPages-1" ng-click="next()" class="quizButton">NEXT</button>
+            <button ng-show="state == 'result' && pageIndex==totalPages-1" ng-click="next()" class="quizButton">DONE</button>
+        </div>
+        <div ng-show="state == 'result'" ng-repeat="a in currentQuestion.answers" aria-hidden="true">
+            <p class="quizFeedback" ng-show="a.correct == currentData[$index]" ng-bind-html="trustResource(a.correct_feedback)"></p>
+            <p class="quizFeedback" ng-show="a.correct != currentData[$index]" ng-bind-html="trustResource(a.incorrect_feedback)"></p>
+        </div>
+    </div>
+
+    <div ng-show="state=='end'">
+        <!--h5>SCORE: {{percentScore}}%</h5-->
+        <div>
+            <p ng-show="(percentScore >= passPercent)" ng-bind-html="trustResource(summarypass)"></p>
+            <p ng-show="percentScore < passPercent" ng-bind-html="trustResource(summaryfail)"></p>
+            <div ng-show="(incorrectAnswers.length > 0)">
+                <br>
+                <h5>{{percentScore >= passPercent ? 'INCORRECT_ANSWERS_PASSED' : 'INCORRECT_ANSWERS_FAILED'}}:</h5>
+                <ul>
+                    <li ng-repeat="i in incorrectAnswers">{{i}}</li>
+                </ul>
+            </div>
+        </div>
+        <div>
+            <button ng-show="(percentScore < passPercent)" ng-click="start()" class="md-raised md-primary md-cornered hmsbtn">TRY AGAIN!</button>
+        </div>
+    </div>
+
+</div>
