@@ -828,15 +828,15 @@ GDirectives.directive("glink", [function() {
 
 /**
  * @ngdoc directive
- * @name quiz
+ * @name enableQuiz
  * @restrict E
  * @description
  * Add this element anywhere to create a quiz. Quiz questions are taken from database using the 'h-id'.
- *     * qid:        Must match the ID in the quiz database              ("id")
- *     * shuffle-questions:   Shuffle the questions each time quiz is taken   (true, false)
- *      <pre><quiz></quiz></pre>
+ *     * e-id:        Must match the ID in the quiz database              ("id")
+ *     * e-shuffle-questions:   Shuffle the questions each time quiz is taken   (true, false)
+ *      <pre><enable-quiz></enable-quiz></pre>
  */
-GDirectives.directive("quiz", ['$http', '$route', '$timeout', '$sce', function($http, $route, $timeout, $sce) {
+GDirectives.directive("gQuiz", ['$http', '$route', '$timeout', '$sce', function($http, $route, $timeout, $sce) {
     var linker = function(scope) {
         var quiz;
         scope.filePath = "";
@@ -845,26 +845,30 @@ GDirectives.directive("quiz", ['$http', '$route', '$timeout', '$sce', function($
         scope.showLanguageSwitch = false;
         scope.inSecondLanguage = false;
         scope.incorrectAnswers = [];
-        scope.quizpoll = {};
 
-        // Initialise attribute variables
-        if (typeof scope.hShuffleQuestions === "undefined") { scope.hShuffleQuestions = false; }
+        scope.abspath = 'json/quiz/quiz'+scope.path;
 
-        scope.trustResource = function getTrustedHtml(resourceUrl) {
-            return $sce.trustAsHtml(resourceUrl);
-        };
+        $http.get(scope.abspath+'/init.json').then(function(res) {
 
-        // The following functions represent a state machine controlling the quiz template using 'scope.state'
+            if(res.data !== {}) {
+                scope.quizpoll = res.data;
+                console.log('--> quiz: '+scope.path+' loaded');
 
-        scope.chooseLanguage = function(toggle) {
-            scope.inSecondLanguage = toggle;
-            scope.reload(true);
-        };
-        scope.reload = function() {        // Load quiz from JSON, set up data structures
-            // Load data file
-            $http({ method: 'GET', url: 'json/quizpolls.json'})
-                .then(function successCallback(response) {
-                    scope.quizpoll = response.data.quizpolls[scope.qid];
+
+                // Initialise attribute variables
+                if (typeof scope.hShuffleQuestions === "undefined") { scope.hShuffleQuestions = false; }
+
+                scope.trustResource = function getTrustedHtml(resourceUrl) {
+                    return $sce.trustAsHtml(resourceUrl);
+                };
+
+                // The following functions represent a state machine controlling the quiz template using 'scope.state'
+
+                scope.chooseLanguage = function(toggle) {
+                    scope.inSecondLanguage = toggle;
+                    scope.reload(true);
+                };
+                scope.reload = function() {        // Load quiz from JSON, set up data structures
                     quiz = scope.quizpoll;
                     scope.state = "begin";
                     scope.type = "radio";
@@ -881,103 +885,113 @@ GDirectives.directive("quiz", ['$http', '$route', '$timeout', '$sce', function($
                     scope.currentQuestion = {};
                     scope.data = { answers: [], student_id: '', score: 0 };
                     scope.filePath = "img/quiz/";
-                });
-        };
-        scope.check = function(index) {         // Update UI elements after selection
-            if(scope.state !== 'question') { return; }
-            if(scope.currentQuestion.type === 'checkbox') {
-                scope.currentData[index] = !scope.currentData[index];
-                scope.resultDisabled = true;
-                for(var j=0; j<scope.currentData.length; j++) {
-                    if (scope.currentData[j]) { scope.resultDisabled = false; }
-                }
-            }
-            else if(scope.currentQuestion.type === 'radio') {
-                scope.radioTempData.state = index;
-                for(var i=0; i<scope.currentData.length; i++ ) {
-                    scope.currentData[i] = false;
-                }
-                scope.currentData[index] = true;
-                scope.resultDisabled = false;
-            }
-            scope.answer();
-        };
-        scope.clickStart = function() {
-            scope.start();
-        };
-        scope.start = function() {      // Set up data structure for answers
-            scope.pageIndex = -1;
-            scope.currentData = null;
-            scope.responseStatus = "";
-            scope.resultDisabled = true;
-            scope.maxscore = 0;
-            scope.data.score = 0;
-            scope.data.answers = [];     // Create an array that stores answers for each question
-            quiz.questions.forEach(function(q) {                        // Set up a 2D array to store answers for each question
-                var answerPage = [].repeat(false, q.answers.length);
-                scope.data.answers.push(answerPage);
-                for(var j=0; j<q.answers.length;j++) {
-                    if (q.answers[j].correct) { scope.maxscore++ ; }          // Total of the correct answers for this quiz
-                }
-            });
-            scope.next();
-        };
-        scope.answer = function() {     // Accumulate the score
-            if(scope.currentQuestion.type === "radio") {                                           // Radio on correct gains a mark. Radio on incorrect scores 0.
-                if (scope.currentQuestion.answers[scope.radioTempData.state].correct) {
-                    scope.data.score++;                                                         // Only one possible correct answer
-                }
-                else {
-                    scope.incorrectAnswers.push(scope.currentQuestion.text);
-                }
-            }
-            else if(scope.currentQuestion.type === "checkbox") {                                 // Checking an incorrect box loses a mark. Checking a correct box gains a mark. Not checking a correct or incorrect box does nothing.
-                for(var j=0; j<scope.currentQuestion.answers.length;j++) {                      // Multiple possibly correct answers, convert to boolean before comparing
-                    if(scope.currentQuestion.answers[j].correct && scope.currentData[j]) {
-                        scope.data.score++;
+                };
+                scope.check = function(index) {         // Update UI elements after selection
+                    if(scope.state !== 'question') { return; }
+                    if(scope.currentQuestion.type === 'checkbox') {
+                        scope.currentData[index] = !scope.currentData[index];
+                        scope.resultDisabled = true;
+                        for(var j=0; j<scope.currentData.length; j++) {
+                            if (scope.currentData[j]) { scope.resultDisabled = false; }
+                        }
                     }
-                    else if(scope.currentQuestion.answers[j].correct === false && scope.currentData[j] === true) {
-                        scope.data.score--;
-                        scope.incorrectAnswers.push(scope.currentQuestion.text);
+                    else if(scope.currentQuestion.type === 'radio') {
+                        scope.radioTempData.state = index;
+                        for(var i=0; i<scope.currentData.length; i++ ) {
+                            scope.currentData[i] = false;
+                        }
+                        scope.currentData[index] = true;
+                        scope.resultDisabled = false;
+                    }
+                    scope.answer();
+                };
+                scope.clickStart = function() {
+                    scope.start();
+                };
+                scope.start = function() {      // Set up data structure for answers
+                    scope.pageIndex = -1;
+                    scope.currentData = null;
+                    scope.responseStatus = "";
+                    scope.resultDisabled = true;
+                    scope.maxscore = 0;
+                    scope.data.score = 0;
+                    scope.data.answers = [];     // Create an array that stores answers for each question
+                    quiz.questions.forEach(function(q) {                        // Set up a 2D array to store answers for each question
+                        var answerPage = [].repeat(false, q.answers.length);
+                        scope.data.answers.push(answerPage);
+                        for(var j=0; j<q.answers.length;j++) {
+                            if (q.answers[j].correct) { scope.maxscore++ ; }          // Total of the correct answers for this quiz
+                        }
+                    });
+                    scope.next();
+                };
+                scope.answer = function() {     // Accumulate the score
+                    if(scope.currentQuestion.type === "radio") {                                           // Radio on correct gains a mark. Radio on incorrect scores 0.
+                        if (scope.currentQuestion.answers[scope.radioTempData.state].correct) {
+                            scope.data.score++;                                                         // Only one possible correct answer
+                        }
+                        else {
+                            scope.incorrectAnswers.push(scope.currentQuestion.text);
+                        }
+                    }
+                    else if(scope.currentQuestion.type === "checkbox") {                                 // Checking an incorrect box loses a mark. Checking a correct box gains a mark. Not checking a correct or incorrect box does nothing.
+                        for(var j=0; j<scope.currentQuestion.answers.length;j++) {                      // Multiple possibly correct answers, convert to boolean before comparing
+                            if(scope.currentQuestion.answers[j].correct && scope.currentData[j]) {
+                                scope.data.score++;
+                            }
+                            else if(scope.currentQuestion.answers[j].correct === false && scope.currentData[j] === true) {
+                                scope.data.score--;
+                                scope.incorrectAnswers.push(scope.currentQuestion.text);
+                            }
+                            else {
+                                scope.incorrectAnswers.push(scope.currentQuestion.text);
+                            }
+                        }
+                    }
+                    var theScore = Math.floor(scope.data.score / scope.maxscore * 100);
+                    scope.percentScore = theScore < 0 ? 0 : theScore;
+
+                    $timeout(function() {           // Safari will not reliably update the DOM if not using $timeout
+                        scope.state = "result";
+                    }, 0);
+
+                };
+
+                scope.next = function() {       // Prepare for the next question
+                    scope.state = "question";
+                    scope.pageIndex++;
+                    scope.resultDisabled = true;
+                    scope.radioTempData.state = -1;
+                    if(scope.pageIndex === scope.totalPages) {
+                        scope.state = "end";
                     }
                     else {
-                        scope.incorrectAnswers.push(scope.currentQuestion.text);
+                        scope.currentData = scope.data.answers[scope.pageIndex];
+                        scope.currentQuestion = quiz.questions[scope.pageIndex];
+                        scope.type = scope.currentQuestion.type;
+                        if(scope.currentQuestion.image_url !== "") {
+                            scope.image_url = scope.abspath+'/'+scope.currentQuestion.image_url;
+                        }
+                        else {
+                            scope.image_url = "";
+                        }
+                        //scope.image_url = (scope.currentQuestion.image_url !== "") ? scope.filePath + scope.currentQuestion.image_url : "";
                     }
-                }
-            }
-            var theScore = Math.floor(scope.data.score / scope.maxscore * 100);
-            scope.percentScore = theScore < 0 ? 0 : theScore;
 
-            $timeout(function() {           // Safari will not reliably update the DOM if not using $timeout
-                scope.state = "result";
-            }, 0);
-
-        };
-
-        scope.next = function() {       // Prepare for the next question
-            scope.state = "question";
-            scope.pageIndex++;
-            scope.resultDisabled = true;
-            scope.radioTempData.state = -1;
-            if(scope.pageIndex === scope.totalPages) {
-                scope.state = "end";
-            }
-            else {
-                scope.currentData = scope.data.answers[scope.pageIndex];
-                scope.currentQuestion = quiz.questions[scope.pageIndex];
-                scope.type = scope.currentQuestion.type;
-                scope.image_url = (scope.currentQuestion.image_url !== "") ? scope.filePath + scope.currentQuestion.image_url : "";
+                };
+                scope.reload(false);
             }
 
-        };
-        scope.reload(false); // true = start test after loading
+        });
+
+        // true = start test after loading
     };
     return {
         restrict: 'E',
         link: linker,
-        templateUrl: 'views/templates/quiz-template.html',
-        scope: {
-            qid : '@'
-        }
+        templateUrl: "views/templates/g-quiz-template.html",
+        scope:{
+            path: '@'
+        },
     };
 }]);
