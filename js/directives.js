@@ -159,6 +159,11 @@ GDirectives.directive("sectionBox", ['$window', '$animate', '$rootScope', 'smoot
             var sElement = document.getElementById(elementId);
             smoothScroll(sElement, options);
         };
+
+        scope.openWin = function(id) {
+            $window.open("http://www.uv.uio.no/om/organisasjon/adm/ffs/unimedia/produksjoner/videoer/afasi-2016/"+id, "", "width=512, height=288");
+        };
+
         /* ------------------------------  */
 
         // Controls open and close of the sliding section in this directive
