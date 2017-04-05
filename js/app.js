@@ -212,6 +212,11 @@ GApp.controller('IndexCtrl', ['$scope', '$translate', '$mdSidenav', '$location',
         $translate.use($scope.currentLanguage);
         $location.path('/overview/'+$scope.currentLanguage);
     };
+
+    $scope.openWin = function(id) {
+        $window.open("http://www.uv.uio.no/om/organisasjon/adm/ffs/unimedia/produksjoner/videoer/afasi-2016/"+id, "", "width=852, height=480");
+    };
+
     $scope.seekToAnchor = function(elementId) {
         if(elementId === '') {
             elementId = 'content';  // Scroll to top
