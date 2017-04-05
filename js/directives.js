@@ -161,7 +161,7 @@ GDirectives.directive("sectionBox", ['$window', '$animate', '$rootScope', 'smoot
         };
 
         scope.openWin = function(id) {
-            $window.open("http://www.uv.uio.no/om/organisasjon/adm/ffs/unimedia/produksjoner/videoer/afasi-2016/"+id, "", "width=512, height=288");
+            $window.open("http://www.uv.uio.no/om/organisasjon/adm/ffs/unimedia/produksjoner/videoer/afasi-2016/"+id, "", "width=640, height=360");
         };
 
         /* ------------------------------  */
